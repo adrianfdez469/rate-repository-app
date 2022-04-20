@@ -20,7 +20,7 @@ const tabs = [
     path: "/"
   }, 
   {
-    text: "SignIn",
+    text: "Sign in",
     path: "/signin"
   }
 ];
