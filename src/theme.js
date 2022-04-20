@@ -18,8 +18,8 @@ const theme = {
   },
   fonts: {
     main: Platform.select({
-      ios: 'Roboto',
-      android: 'Arial',
+      ios: 'Arial',
+      android: 'Roboto',
       default: 'System'
     }),
   },
