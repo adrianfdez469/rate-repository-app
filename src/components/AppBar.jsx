@@ -1,4 +1,6 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Link, useLocation } from 'react-router-native';
+
 import Constants from 'expo-constants';
 import { SubHeadingText } from './Text';
 import theme from '../theme';
@@ -29,16 +31,22 @@ const AppBarTabStyles = StyleSheet.create({
 })
 
 const AppBarTab = ({item, isActive}) => {
-  return <View style={AppBarTabStyles.items}>
-    <SubHeadingText style={AppBarTabStyles.text} >{item}</SubHeadingText>
+  return (
+  <View style={AppBarTabStyles.items}>
+    <Link to={item.path}>
+      <SubHeadingText style={AppBarTabStyles.text} >{item.text}</SubHeadingText>
+    </Link>
     {isActive && <View style={AppBarTabStyles.active}></View>}
   </View>
-};
+  )};
 
 const AppBar = ({tabs}) => {
+  const location = useLocation();
 
   return <View style={AppBarStyles.container}>
-    {tabs.map(t => <AppBarTab key={t} isActive item={t}/>)}
+    <ScrollView horizontal>
+      {tabs.map(t => <AppBarTab key={t.path} isActive={location.pathname === t.path} item={t}/>)}
+    </ScrollView>
   </View>;
 };
 

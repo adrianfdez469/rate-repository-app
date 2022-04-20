@@ -112,7 +112,7 @@ const cardStyles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center',
     marginHorizontal: 5,
-    borderRadius: 5
+    borderRadius: 5,
   }
 });
 
