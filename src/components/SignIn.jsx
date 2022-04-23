@@ -1,11 +1,13 @@
 import { Pressable, View, StyleSheet } from 'react-native'
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-native'
 
 import { SubHeadingText, Text } from './Text';
 
 import { FormikTextInput } from './Input';
 import theme from '../theme';
+import useSignIn from '../hooks/useSignIn';
 
 
 const styles = StyleSheet.create({
@@ -53,7 +55,10 @@ const validationSchema = yup.object().shape({
 
 const SignIn = () => {
 
-  const onSubmit = (values) => {
+  const [signIn] = useSignIn();
+  const goTo = useNavigate();
+
+  const onSubmit = async (values) => {
     const username = values.username;
     const password = values.password;
 
@@ -61,6 +66,14 @@ const SignIn = () => {
     console.log(password);
     // TODO: Call signin to REST_API / GraphQL_API
 
+    try {
+      const { data } = await signIn({username, password});
+      console.log(data);
+      goTo('/');
+
+    } catch (error) {
+      console.log(error); 
+    }
   };
 
 

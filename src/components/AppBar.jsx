@@ -1,9 +1,11 @@
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Link, useLocation } from 'react-router-native';
+import { useQuery } from '@apollo/client'
 
 import Constants from 'expo-constants';
 import { SubHeadingText } from './Text';
 import theme from '../theme';
+import { ME } from '../graphql/queries';
 
 const AppBarStyles = StyleSheet.create({
   container: {
@@ -21,7 +23,7 @@ const AppBarTabStyles = StyleSheet.create({
     color: theme.colors.light
   },
   items: {
-    marginVertical: 20,
+    marginVertical: 10,
     marginHorizontal: 10,
   },
   active: {
@@ -40,12 +42,34 @@ const AppBarTab = ({item, isActive}) => {
   </View>
   )};
 
-const AppBar = ({tabs}) => {
+
+  const repositoriesTab = {
+    text: "Repositories",
+    path: "/"
+  };
+  const signInTab = {
+    text: "Sign in",
+    path: "/signin"
+  };
+  const signOutTab = {
+    text: "Sign out",
+    path: "/signout"
+  };
+
+const AppBar = () => {
   const location = useLocation();
+  const { data, /*loading, error*/ } = useQuery(ME);
+
 
   return <View style={AppBarStyles.container}>
     <ScrollView horizontal>
-      {tabs.map(t => <AppBarTab key={t.path} isActive={location.pathname === t.path} item={t}/>)}
+      <AppBarTab isActive={location.pathname === repositoriesTab.path} item={repositoriesTab}/>   
+      {data?.me 
+        ? <AppBarTab isActive={location.pathname === signOutTab.path} item={signOutTab}/>
+        : <AppBarTab isActive={location.pathname === signInTab.path} item={signInTab}/>   
+      }
+    
+    
     </ScrollView>
   </View>;
 };
