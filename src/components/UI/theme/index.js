@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 
-const theme = {
+export const theme = {
   colors: {
     textPrimary: '#24292e',
     textSecondary: '#586069',
@@ -28,5 +28,3 @@ const theme = {
     bold: '700',
   },
 };
-
-export default theme;

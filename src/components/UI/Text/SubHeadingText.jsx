@@ -1,4 +1,4 @@
-import Text from './Text';
+import { Text } from './';
 
 const SubHeadingText = props => {
 

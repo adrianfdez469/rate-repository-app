@@ -1,26 +1,41 @@
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 import RepositoryItem from './RpositoryItem';
+import { useNavigate, useLocation } from 'react-router-native';
 
 
-const styles = StyleSheet.create({
-  separator: {
-    height: 10,
-  },
-});
-
-
-const ItemSeparator = () => <View style={styles.separator} />;
+const RenderItem = ({item, handlePress}) => {
+  return (
+    <TouchableOpacity onPress={handlePress}>
+      <RepositoryItem item={item} />
+    </TouchableOpacity>
+  );
+}
 
 const RepositoryListContainer = ({repositories}) => {
+
+  const goTo = useNavigate();
+  const location = useLocation();
+
   const repositoryNodes = repositories 
-  ? repositories.edges.map(edge => ({...edge.node, key: edge.node.fullName}))
-  : []; 
+    ? repositories.edges.map(edge => ({...edge.node/*, key: edge.node.id*/}))
+    : [];
+
+  const renderItem = ({item}) => {
+    const handlePress = () => {
+      const path = `/repository/${item.id}`;
+      if(location.pathname !== path){
+        goTo(`/repository/${item.id}`);
+      } 
+    }
+
+    return <RenderItem item={item} handlePress={handlePress} />
+  };
 
   return (
     <FlatList
       data={repositoryNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={RepositoryItem}
+      keyExtractor={item => item.id}
+      renderItem={renderItem}
     />
   );
 }

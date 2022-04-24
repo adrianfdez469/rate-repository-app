@@ -8,8 +8,9 @@ const cardStyles = StyleSheet.create({
     display: "flex",
     alignItems: 'stretch',
     justifyContent: 'center',
-    marginHorizontal: 5,
     borderRadius: 5,
+    //marginHorizontal: 5,
+    margin: 5 
   }
 });
 

@@ -1,4 +1,5 @@
-import { Card, CardFooter, CardHeader } from '../Card'
+import { Card, CardFooter, CardHeader } from '../UI';
+
 
 export const parseNumberToThousens = (number) => {
   if(number > 999){
@@ -12,8 +13,8 @@ export const parseNumberToThousens = (number) => {
   }
 }
 
-const RepositiryItem = ({item}) => {
-
+const RepositiryItem = ({item, children}) => {
+  
   const infos = [
     {
       value: parseNumberToThousens(item.stargazersCount),
@@ -33,15 +34,17 @@ const RepositiryItem = ({item}) => {
     },
   ];
 
+
   return (
     <Card>
       <CardHeader
-        avatarUrl={item.ownerAvatarUrl} 
+        avatarUrl={item.ownerAvatarUrl}
         title={item.fullName}  
         subHeader={item.description}
         tag={item.language}
       />
       <CardFooter infos={infos} />
+      {children}
     </Card>
   )
 

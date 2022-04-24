@@ -1,13 +1,12 @@
 import { StyleSheet, View, Image } from 'react-native';
-import { Text } from '../Text'
-import theme from '../../theme';
+import { theme } from '../theme';
+import { SubHeadingText, Text } from '../index';
 
 const styles = StyleSheet.create({
   textItem: {
     margin: 2
   }
 });
-
 
 const headerStyles = StyleSheet.create({
   headerSection: {
@@ -23,6 +22,17 @@ const headerStyles = StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 5
+  },
+  avatarTextContainer: {
+    width: 45,
+    height: 45,
+    marginRight: 5,
+    borderColor: theme.colors.primary,
+    borderWidth: 2,
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   mainInfoContainer: {
     justifyContent: "space-evenly",
@@ -42,26 +52,32 @@ const headerStyles = StyleSheet.create({
   },
 });
 
-const CardHeader = ({avatarUrl, title, subHeader, tag}) => {
+const CardHeader = ({avatarUrl, avatarShorttext, title, subHeader, tag, text}) => {
   return (
     <View testID='card-header'>
       <View style={headerStyles.headerSection}>
+      {avatarUrl ?
         <View style={headerStyles.avatarContainer}>
-          <Image 
+           <Image 
             style={headerStyles.avatar} 
             source={{
               uri: avatarUrl
             }}
-          />
+          /> 
         </View>
+        : 
+          <View style={headerStyles.avatarTextContainer}>
+            <SubHeadingText>{avatarShorttext || title.charAt(0).toUpperCase()}
+          </SubHeadingText></View>
+        }
+
         <View style={headerStyles.mainInfoContainer}>
           <Text fontWeight="bold" fontSize="subheading" style={styles.textItem}>{title}</Text>
           <View>
             <Text color={"textSecondary"} style={styles.textItem}>{subHeader}</Text>
-
           </View>
-          <Text style={[headerStyles.tag, styles.textItem]} >{tag}</Text>
-          
+          {tag && <Text style={[headerStyles.tag, styles.textItem]} >{tag}</Text>}
+          {text && <Text style={styles.textItem} >{text}</Text>}
         </View>
       </View>
     </View>

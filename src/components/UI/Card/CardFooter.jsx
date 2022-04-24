@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { Text } from '../Text'
+import { Text } from '../';
 
 const footerStyles = StyleSheet.create({
   footerSection: {
