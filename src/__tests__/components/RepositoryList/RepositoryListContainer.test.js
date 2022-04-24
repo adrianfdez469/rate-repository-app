@@ -54,7 +54,7 @@ describe('RepositoryList', () => {
       };
 
       const fetchSort = jest.fn()
-      const { getAllByTestId, getAllByText,  /* debug */ } = render(<MemoryRouter><RepositoryListContainer repositories={repositories} fetchSort={fetchSort}/></MemoryRouter>)
+      const { getAllByTestId, getAllByText } = render(<MemoryRouter><RepositoryListContainer repositories={repositories} fetchSort={fetchSort}/></MemoryRouter>)
       const cardItems = getAllByTestId('card');
       expect(cardItems).toHaveLength(2);
 

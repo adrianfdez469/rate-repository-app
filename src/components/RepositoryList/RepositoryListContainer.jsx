@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native';
 import RepositoryItem from './RpositoryItem';
-import { useNavigate, useLocation } from 'react-router-native';
 import { Picker, TextInput } from '../UI';
-import { sortValue } from '../../hooks/useRepositories'
+
 
 const RenderItem = ({item, handlePress}) => {
   return (
@@ -13,16 +11,21 @@ const RenderItem = ({item, handlePress}) => {
   );
 }
 
-const RepositoryListContainer = ({repositories, fetchSort, fetchFilter, filter}) => {
+const RepositoryListContainer = ({repositories, handlePress, fetchFilter, filter, onPick, selectedValue, pickerOpts=[]}) => {
 
-  const goTo = useNavigate();
+  /*const goTo = useNavigate();
   const location = useLocation();
-  const [selectedValue, setSelectedValue] = useState();
+  const [selectedValue, setSelectedValue] = useState();*/
 
   const repositoryNodes = repositories 
     ? repositories.edges.map(edge => ({...edge.node}))
     : [];
 
+    const renderItem = ({item}) => {
+
+      return <RenderItem item={item} handlePress={() => handlePress(item)} />
+    };
+/*
   const pickerOpts = [
     {
       label: 'Latest repositories',
@@ -55,7 +58,7 @@ const RepositoryListContainer = ({repositories, fetchSort, fetchFilter, filter})
 
   useEffect(() => {
     fetchSort(selectedValue);
-  }, [selectedValue]);
+  }, [selectedValue]);*/
 
   return (
     <FlatList
@@ -73,6 +76,10 @@ const RepositoryListContainer = ({repositories, fetchSort, fetchFilter, filter})
           />
         </>
       }
+      onEndReached={() => {
+        console.log('Fin')
+      }}
+      onEndReachedThreshold={0.5}
     />
   );
 }
