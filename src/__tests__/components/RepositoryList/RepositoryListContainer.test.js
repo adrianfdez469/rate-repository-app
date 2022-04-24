@@ -53,9 +53,8 @@ describe('RepositoryList', () => {
         ],
       };
 
-      // Add your test code here
-      const { getAllByTestId, getAllByText,  /* debug */ } = render(<MemoryRouter><RepositoryListContainer repositories={repositories} /></MemoryRouter>)
-      //debug();
+      const fetchSort = jest.fn()
+      const { getAllByTestId, getAllByText,  /* debug */ } = render(<MemoryRouter><RepositoryListContainer repositories={repositories} fetchSort={fetchSort}/></MemoryRouter>)
       const cardItems = getAllByTestId('card');
       expect(cardItems).toHaveLength(2);
 
