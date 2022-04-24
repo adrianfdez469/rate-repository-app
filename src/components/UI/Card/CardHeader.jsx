@@ -29,7 +29,7 @@ const headerStyles = StyleSheet.create({
     marginRight: 5,
     borderColor: theme.colors.primary,
     borderWidth: 2,
-    borderRadius: '50%',
+    borderRadius: 45/2,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'

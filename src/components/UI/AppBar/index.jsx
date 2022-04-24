@@ -39,37 +39,16 @@ const AppBarTab = ({item, isActive}) => {
   </View>
   )};
 
-
-  const repositoriesTab = {
-    text: "Repositories",
-    path: "/"
-  };
-  const signInTab = {
-    text: "Sign in",
-    path: "/signin"
-  };
-  const signOutTab = {
-    text: "Sign out",
-    path: "/signout"
-  };
-  const createReviewTab = {
-    text: 'Create a review',
-    path: '/createreview'
-  };
-
-const AppBar = ({location, isLogin}) => {
-  return <View style={AppBarStyles.container}>
-  <ScrollView horizontal>
-    <AppBarTab isActive={location.pathname === repositoriesTab.path} item={repositoriesTab}/>
-    {isLogin 
-      ? <>
-          <AppBarTab isActive={location.pathname === createReviewTab.path} item={createReviewTab}/>
-          <AppBarTab isActive={location.pathname === signOutTab.path} item={signOutTab}/>
-      </>
-      : <AppBarTab isActive={location.pathname === signInTab.path} item={signInTab}/>   
-    }
-  </ScrollView>
-</View>;
+const AppBar = ({location, tabs}) => {
+  return ( 
+    <View style={AppBarStyles.container}>
+      <ScrollView horizontal>
+        {tabs.map(t => 
+          <AppBarTab key={t.path} isActive={location.pathname === t.path} item={t}/>
+        )}
+      </ScrollView>
+    </View>
+  );
 }
 
 export default AppBar;

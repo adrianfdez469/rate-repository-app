@@ -20,7 +20,10 @@ const useSignIn = () => {
     return response;
   };
 
-  return [signIn, result];
+  return {
+    signIn, 
+    result
+  };
     
 }
 export default useSignIn;

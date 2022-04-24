@@ -1,6 +1,7 @@
-import { render } from '@testing-library/react-native'
+import { render } from '@testing-library/react-native';
+import { MemoryRouter } from 'react-router-native';
 import RepositoryListContainer from '../../../components/RepositoryList/RepositoryListContainer'
-import { parseNumberToThousens } from '../../../components/RepositoryList/RpositoryItem'
+import { parseNumberToThousens } from '../../../components/RepositoryList/RpositoryItem';
 
 describe('RepositoryList', () => {
   describe('RepositoryListContainer', () => {
@@ -53,7 +54,7 @@ describe('RepositoryList', () => {
       };
 
       // Add your test code here
-      const { getAllByTestId, getAllByText,  /* debug */ } = render(<RepositoryListContainer repositories={repositories} />)
+      const { getAllByTestId, getAllByText,  /* debug */ } = render(<MemoryRouter><RepositoryListContainer repositories={repositories} /></MemoryRouter>)
       //debug();
       const cardItems = getAllByTestId('card');
       expect(cardItems).toHaveLength(2);
