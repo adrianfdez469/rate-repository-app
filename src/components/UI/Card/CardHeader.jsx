@@ -1,6 +1,6 @@
 import { StyleSheet, View, Image } from 'react-native';
 import { theme } from '../theme';
-import { SubHeadingText, Text } from '../index';
+import { SubHeadingText, Text } from '../Text';
 
 const styles = StyleSheet.create({
   textItem: {

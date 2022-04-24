@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native';
 import RepositoryItem from './RpositoryItem';
 import { useNavigate, useLocation } from 'react-router-native';
-import {Picker} from '@react-native-picker/picker';
+import { Picker, TextInput } from '../UI';
+import { sortValue } from '../../hooks/useRepositories'
 
 const RenderItem = ({item, handlePress}) => {
   return (
@@ -12,15 +13,34 @@ const RenderItem = ({item, handlePress}) => {
   );
 }
 
-const RepositoryListContainer = ({repositories}) => {
+const RepositoryListContainer = ({repositories, fetchSort, fetchFilter, filter}) => {
 
   const goTo = useNavigate();
   const location = useLocation();
-  const [selectedLanguage, setSelectedLanguage] = useState();
+  const [selectedValue, setSelectedValue] = useState();
 
   const repositoryNodes = repositories 
-    ? repositories.edges.map(edge => ({...edge.node/*, key: edge.node.id*/}))
+    ? repositories.edges.map(edge => ({...edge.node}))
     : [];
+
+  const pickerOpts = [
+    {
+      label: 'Latest repositories',
+      value: sortValue.latest
+    },
+    {
+      label: 'Highest rated repositories',
+      value: sortValue.highest
+    },
+    {
+      label: 'Lowest rated repositories',
+      value: sortValue.lowest
+    },
+  ];
+
+  const onPick = (itemValue) => {
+    setSelectedValue(itemValue);
+  }
 
   const renderItem = ({item}) => {
     const handlePress = () => {
@@ -33,20 +53,25 @@ const RepositoryListContainer = ({repositories}) => {
     return <RenderItem item={item} handlePress={handlePress} />
   };
 
+  useEffect(() => {
+    fetchSort(selectedValue);
+  }, [selectedValue]);
+
   return (
     <FlatList
       data={repositoryNodes}
       keyExtractor={item => item.id}
       renderItem={renderItem}
       ListHeaderComponent={
-        <Picker
-          selectedValue={selectedLanguage}
-          onValueChange={(itemValue) =>
-            setSelectedLanguage(itemValue)
-          }>
-          <Picker.Item label="Java" value="java" />
-          <Picker.Item label="JavaScript" value="js" />
-        </Picker>
+        <>
+          <TextInput value={filter} onChange={({target}) => fetchFilter(target.value)} style={{margin:5}} placeholder="Search..."/>
+          <Picker 
+            options={pickerOpts}
+            selectedValue={selectedValue}
+            onValueChange={onPick}
+            mode="dialog"
+          />
+        </>
       }
     />
   );

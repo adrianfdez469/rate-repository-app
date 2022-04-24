@@ -2,7 +2,8 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import { Link } from 'react-router-native';
 
 import Constants from 'expo-constants';
-import { theme, SubHeadingText } from '../';
+import { SubHeadingText } from '../Text';
+import { theme } from '../theme'
 
 const AppBarStyles = StyleSheet.create({
   container: {

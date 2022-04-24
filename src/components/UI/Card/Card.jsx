@@ -9,7 +9,6 @@ const cardStyles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center',
     borderRadius: 5,
-    //marginHorizontal: 5,
     margin: 5 
   }
 });

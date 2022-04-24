@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 import { CORE_LIST_FIELDS, REPOSITORY_FIELDS } from './fragments';
 
 export const GET_REPOSITORIES = gql`
-  query GetRepositories($first: Int, $orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection) {
-    repositories(first: $first, orderBy: $orderBy, orderDirection: $orderDirection) {
+  query GetRepositories($first: Int, $orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String) {
+    repositories(first: $first, orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword) {
       ...CoreListFields
     }
   }
