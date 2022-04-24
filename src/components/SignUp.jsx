@@ -69,9 +69,7 @@ const SignUp = () => {
     const password = values.password;
 
     try {
-      const { data } = await submit({username, password});
-      console.log(data);
-      
+      await submit({username, password});
       await signIn({username, password});
       goTo('/');
 

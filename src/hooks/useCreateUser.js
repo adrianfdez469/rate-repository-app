@@ -7,9 +7,6 @@ const useCreateUser = () => {
   const [ mutate, result ] = useMutation(CREATE_USER);
 
   const submit = async ({username, password}) => {
-    console.log(username);
-    console.log(password);
-
     return mutate({variables: { user: { username, password }}});
   }
 

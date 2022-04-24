@@ -7,7 +7,6 @@ const useReview = () => {
   
 
   const submit = async (values) => {
-    console.log(values);
     return await mutate({variables: {
       review: {
         ...values,
