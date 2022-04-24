@@ -68,8 +68,6 @@ const AppBar = () => {
         ? <AppBarTab isActive={location.pathname === signOutTab.path} item={signOutTab}/>
         : <AppBarTab isActive={location.pathname === signInTab.path} item={signInTab}/>   
       }
-    
-    
     </ScrollView>
   </View>;
 };

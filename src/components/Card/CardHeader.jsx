@@ -44,7 +44,7 @@ const headerStyles = StyleSheet.create({
 
 const CardHeader = ({avatarUrl, title, subHeader, tag}) => {
   return (
-    <View>
+    <View testID='card-header'>
       <View style={headerStyles.headerSection}>
         <View style={headerStyles.avatarContainer}>
           <Image 

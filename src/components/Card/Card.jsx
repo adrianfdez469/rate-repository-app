@@ -15,7 +15,7 @@ const cardStyles = StyleSheet.create({
 
 const Card = (props) => {
   return (
-    <View style={cardStyles.container}>
+    <View testID='card' style={cardStyles.container}>
       {props.children}
     </View>
   );

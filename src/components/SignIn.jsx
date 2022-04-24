@@ -53,6 +53,35 @@ const validationSchema = yup.object().shape({
   password: yup.string().required('Password is required')
 }) 
 
+
+export const SignInContainer = ({onSubmit}) => {
+  return (
+    <View style={styles.container}>
+
+      <View style={styles.frame}>
+        <SubHeadingText style={styles.title}>Sign in</SubHeadingText>
+        <Formik 
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+        >
+          {({handleSubmit}) => {
+            return (
+              <>
+                <FormikTextInput name="username" placeholder="Username"/>
+                <FormikTextInput secureTextEntry name="password" placeholder="Password"/>
+                <Pressable testID='btn-submit' onPress={handleSubmit} style={styles.presable}>
+                  <Text fontWeight="bold" style={styles.presableText}>Sign in</Text>
+                </Pressable>
+              </>
+            );
+          }}
+        </Formik>
+      </View>
+    </View>
+  );
+};
+
 const SignIn = () => {
 
   const [signIn] = useSignIn();
@@ -76,32 +105,8 @@ const SignIn = () => {
     }
   };
 
-
-  return (
-    <View style={styles.container}>
-
-      <View style={styles.frame}>
-        <SubHeadingText style={styles.title}>Sign in</SubHeadingText>
-        <Formik 
-          initialValues={initialValues}
-          onSubmit={onSubmit}
-          validationSchema={validationSchema}
-        >
-          {({handleSubmit}) => {
-            return (
-              <>
-                <FormikTextInput name="username" placeholder="Username"/>
-                <FormikTextInput secureTextEntry name="password" placeholder="Password"/>
-                <Pressable onPress={handleSubmit} style={styles.presable}>
-                  <Text fontWeight="bold" style={styles.presableText}>Sign in</Text>
-                </Pressable>
-              </>
-            );
-          }}
-        </Formik>
-      </View>
-    </View>
-  );
+  return <SignInContainer onSubmit={onSubmit}/>
+  
 };
 
 export default SignIn;

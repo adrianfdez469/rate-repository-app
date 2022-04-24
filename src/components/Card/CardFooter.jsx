@@ -16,12 +16,12 @@ const footerStyles = StyleSheet.create({
 
 const CardFooter = ({infos}) => {
   return (
-    <View style={footerStyles.footerSection}>
+    <View testID='card-footer' style={footerStyles.footerSection}>
       {infos.map(inf => {
         return (
-          <View key={inf.label} style={footerStyles.footerTag}>
-            <View><Text fontWeight="bold">{inf.value}</Text></View>
-            <View><Text>{inf.label}</Text></View>
+          <View testID='card-footer-item'  key={inf.label} style={footerStyles.footerTag}>
+            <View testID='footer-item-value'><Text fontWeight="bold">{inf.value}</Text></View>
+            <View testID='footer-item-label'><Text>{inf.label}</Text></View>
         </View>)
       })}
     </View>

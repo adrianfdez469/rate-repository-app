@@ -1,9 +1,12 @@
-import { Card, CardFooter, CardHeader } from './Card'
+import { Card, CardFooter, CardHeader } from '../Card'
 
-const parseNumberToThousens = (number) => {
+export const parseNumberToThousens = (number) => {
   if(number > 999){
     const result = number/1000;
-    return `${result.toFixed(1)}k`;
+    const nstr = result.toString();
+    const [intiger, decimal ] = nstr.split('.');
+    const decimalDigit = decimal.charAt(0)
+    return `${intiger}.${decimalDigit}k`;
   } else{
     return number
   }
@@ -32,7 +35,7 @@ const RepositiryItem = ({item}) => {
 
   return (
     <Card>
-      <CardHeader 
+      <CardHeader
         avatarUrl={item.ownerAvatarUrl} 
         title={item.fullName}  
         subHeader={item.description}
