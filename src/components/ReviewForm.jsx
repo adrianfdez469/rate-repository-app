@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import useReview from '../hooks/useReview';
+import {useInsertReview} from '../hooks/useReview';
 
 import { Modal, FormikTextInput, Pressable } from './UI'
 
@@ -51,7 +51,7 @@ const ReviewFormContainer = ({onSubmit}) => {
 
 const ReviewForm = () => {
 
-  const { submit } = useReview();
+  const { submit } = useInsertReview();
   const goTo = useNavigate();
 
   const onSubmit = async (values) => {

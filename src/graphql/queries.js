@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
-import { CORE_LIST_FIELDS, REPOSITORY_FIELDS } from './fragments';
+import { CORE_LIST_FIELDS, CORE_REVIEW_FIELDS, REPOSITORY_FIELDS } from './fragments';
 
 export const GET_REPOSITORIES = gql`
-  query GetRepositories($first: Int, $orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String) {
-    repositories(first: $first, orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword) {
+  query GetRepositories($first: Int, $after: String, $orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String) {
+    repositories(first: $first, after: $after, orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword) {
       ...CoreListFields
     }
   }
@@ -11,35 +11,28 @@ export const GET_REPOSITORIES = gql`
 `;
 
 export const GET_REPOSITORY = gql`
-  query Repository($repositoryId: ID!) {
+  query Repository($repositoryId: ID!, $first: Int, $after: String) {
     repository(id: $repositoryId) {
-      ...RepositoryFields,
       url,
-      reviews {
-        edges {
-          cursor
-          node {
-            id
-            createdAt
-            rating
-            text
-            user {
-              id
-              username
-            }
-          }
-        }
+      ...RepositoryFields,
+      reviews(first: $first, after: $after) {
+        ...CoreReviewFields
       }
     }
   }
   ${REPOSITORY_FIELDS}
+  ${CORE_REVIEW_FIELDS}
 `;
 
 export const ME = gql`
-  query {
+  query getCurrentUser($includeReviews: Boolean = false, $first: Int, $after: String){
     me {
       id
       username
+      reviews (first: $first, after: $after) @include(if: $includeReviews)  {
+        ...CoreReviewFields
+      }
     }
   }
+  ${CORE_REVIEW_FIELDS}
 `;

@@ -13,12 +13,25 @@ export const sortValue = {
 const useRepositories = () => {
   
   const variablesRef = useRef({first: 5});
-  const { data, loading, refetch } = useQuery(GET_REPOSITORIES, { fetchPolicy: 'cache-and-network', variables: variablesRef.current } );
+  const { data, loading, refetch, fetchMore } = useQuery(GET_REPOSITORIES, { fetchPolicy: 'cache-and-network', variables: variablesRef.current } );
   const [filter, setFilter] = useState('');
   const [value] = useDebounce(filter, 500);
   
   const changeFilter = (value) => {
     setFilter(value);
+  }
+
+  const handleFetchMore = () => {
+    const canFetch = !loading && data?.repositories.pageInfo.hasNextPage;
+    if(!canFetch){
+      return;
+    }
+    fetchMore({
+      variables: {
+        after: data.repositories.pageInfo.endCursor,
+        ...variablesRef.current,
+      }
+    })
   }
 
   const fetchSort = (value) => {
@@ -55,7 +68,8 @@ const useRepositories = () => {
     loading,
     fetchSort,
     filter,
-    fetchFilter: changeFilter
+    fetchFilter: changeFilter,
+    fetchMore: handleFetchMore
   };
 };
 

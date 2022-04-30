@@ -1,7 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router-native';
-import { useQuery } from '@apollo/client';
-import { ME } from '../graphql/queries';
+import useMe from '../hooks/useMe';
 
 import { AppBar } from './UI'
 
@@ -25,11 +24,15 @@ const signUpTab = {
   text: 'Sign up',
   path: '/signup'
 }
+const myReviewsTab = {
+  text: 'My reviews',
+  path: '/myreviews'
 
+}
 
 const Menu = () => {
   const location = useLocation();
-  const { data } = useQuery(ME);
+  const { data } = useMe();
 
   const isLogin = !!data?.me;
   
@@ -39,6 +42,7 @@ const Menu = () => {
     ...(!isLogin ? [signInTab] : []),
     ...(!isLogin ? [signUpTab] : []),
     ...(isLogin ? [createReviewTab]: []),
+    ...(isLogin ? [myReviewsTab]: []),
     ...(isLogin ? [signOutTab] : []),
   ] : [];
 

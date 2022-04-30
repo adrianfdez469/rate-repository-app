@@ -5,7 +5,7 @@ import RepositoryListContainer from './RepositoryListContainer';
 
 const RepositoryList = () => {
 
-  const { repositories, fetchSort, fetchFilter, filter } = useRepositories();
+  const { repositories, fetchSort, fetchFilter, filter, fetchMore } = useRepositories();
   const goTo = useNavigate();
   const location = useLocation();
   const [selectedValue, setSelectedValue] = useState();
@@ -36,6 +36,10 @@ const RepositoryList = () => {
     } 
   }
 
+  const onEndListReach = () => {
+    fetchMore()
+  };
+
   useEffect(() => {
     fetchSort(selectedValue);
   }, [selectedValue]);
@@ -48,6 +52,7 @@ const RepositoryList = () => {
     selectedValue={selectedValue}
     pickerOpts={pickerOpts}
     onPick={onPick}
+    onEndListReach={onEndListReach}
   />
 };
 

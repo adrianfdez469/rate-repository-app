@@ -1,11 +1,11 @@
 import { useMutation } from '@apollo/client'
-import { REVIEW } from '../graphql/mutations'
+import { REVIEW, DELETE_REVIEW } from '../graphql/mutations'
 
-const useReview = () => {
+
+export const useInsertReview = () => {
 
   const [mutate, result] = useMutation(REVIEW);
   
-
   const submit = async (values) => {
     return await mutate({variables: {
       review: {
@@ -17,8 +17,25 @@ const useReview = () => {
 
   return {
     submit,
-    result
+    result: result,
   }
 
 }
-export default useReview;
+
+export const useRemoveReview = () => {
+
+  const [remove, result] = useMutation(DELETE_REVIEW);
+
+  const deleteRev = (id) => {
+    return remove({variables: {
+      deleteReviewId: id
+    }});
+  }
+
+  return {    
+    remove: deleteRev,
+    result
+  }
+}
+
+

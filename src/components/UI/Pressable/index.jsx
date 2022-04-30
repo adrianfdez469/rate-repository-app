@@ -5,12 +5,12 @@ import { theme }  from '../theme';
 
 const styles = StyleSheet.create({
   presable: {
-    alignSelf:'center',
+    //alignSelf:'center',
     marginVertical: 10,
     padding: 15,
     backgroundColor: theme.colors.primary,
     borderRadius: 5,
-    width: '100%'
+    alignSelf: 'auto'
   },
   presableText: {
     color: theme.colors.light,
@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const Presable = ({onPress, text}) => {
+const Presable = ({onPress, text, style}) => {
 
   return (
-    <NativePressable testID='btn-submit' onPress={onPress} style={styles.presable}>
+    <NativePressable testID='btn-submit' onPress={onPress} style={[styles.presable, style]}>
       <Text fontWeight="bold" style={styles.presableText}>{text}</Text>
     </NativePressable>
   );

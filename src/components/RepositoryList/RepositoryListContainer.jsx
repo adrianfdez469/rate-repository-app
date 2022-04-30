@@ -11,11 +11,7 @@ const RenderItem = ({item, handlePress}) => {
   );
 }
 
-const RepositoryListContainer = ({repositories, handlePress, fetchFilter, filter, onPick, selectedValue, pickerOpts=[]}) => {
-
-  /*const goTo = useNavigate();
-  const location = useLocation();
-  const [selectedValue, setSelectedValue] = useState();*/
+const RepositoryListContainer = ({repositories, handlePress, fetchFilter, filter, onPick, selectedValue, pickerOpts=[], onEndListReach}) => {
 
   const repositoryNodes = repositories 
     ? repositories.edges.map(edge => ({...edge.node}))
@@ -25,40 +21,6 @@ const RepositoryListContainer = ({repositories, handlePress, fetchFilter, filter
 
       return <RenderItem item={item} handlePress={() => handlePress(item)} />
     };
-/*
-  const pickerOpts = [
-    {
-      label: 'Latest repositories',
-      value: sortValue.latest
-    },
-    {
-      label: 'Highest rated repositories',
-      value: sortValue.highest
-    },
-    {
-      label: 'Lowest rated repositories',
-      value: sortValue.lowest
-    },
-  ];
-
-  const onPick = (itemValue) => {
-    setSelectedValue(itemValue);
-  }
-
-  const renderItem = ({item}) => {
-    const handlePress = () => {
-      const path = `/repository/${item.id}`;
-      if(location.pathname !== path){
-        goTo(`/repository/${item.id}`);
-      } 
-    }
-
-    return <RenderItem item={item} handlePress={handlePress} />
-  };
-
-  useEffect(() => {
-    fetchSort(selectedValue);
-  }, [selectedValue]);*/
 
   return (
     <FlatList
@@ -76,10 +38,8 @@ const RepositoryListContainer = ({repositories, handlePress, fetchFilter, filter
           />
         </>
       }
-      onEndReached={() => {
-        console.log('Fin')
-      }}
-      onEndReachedThreshold={0.5}
+      onEndReached={onEndListReach}
+      onEndReachedThreshold={0.3}
     />
   );
 }

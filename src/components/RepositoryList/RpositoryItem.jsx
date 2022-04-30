@@ -6,8 +6,11 @@ export const parseNumberToThousens = (number) => {
     const result = number/1000;
     const nstr = result.toString();
     const [intiger, decimal ] = nstr.split('.');
-    const decimalDigit = decimal.charAt(0)
-    return `${intiger}.${decimalDigit}k`;
+    let decimalDigit = '';
+    if(decimal){
+      decimalDigit = `.${decimal.charAt(0)}`;
+    }
+    return `${intiger}${decimalDigit}k`;
   } else{
     return number
   }

@@ -19,6 +19,8 @@ export const CORE_LIST_FIELDS = gql`
     totalCount
     pageInfo {
       hasNextPage
+      endCursor
+      startCursor
     }
     edges {
       cursor
@@ -28,4 +30,31 @@ export const CORE_LIST_FIELDS = gql`
     }
   }
   ${REPOSITORY_FIELDS}
+`;
+
+export const CORE_REVIEW_FIELDS = gql`
+fragment CoreReviewFields on ReviewConnection {
+  edges {
+    cursor
+    node {
+      id
+      createdAt
+      rating
+      text
+      user {
+        id
+        username
+      }
+      repository {
+        fullName
+        url
+      }
+    }
+  }
+  pageInfo {
+    endCursor
+    startCursor
+    hasNextPage
+  }
+}
 `;
